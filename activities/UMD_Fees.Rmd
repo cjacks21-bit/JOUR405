@@ -33,7 +33,7 @@ umd_fees_pct <- umd_fees |> mutate(pct_change = (`Fall 2026`- `Fall 2021`)/`Fall
 
 Write a few sentences about what you found in those percentages. What's the story here? What questions do you have?
 
-
+When bringing our attention to the biggest percent changes you mentioned recreation services and us being fit. As a former lifeguard that used to work at one of the gyms on campus under University Recreation and Wellness, I encountered countless employees complaining about one of our bosses salary due to the fact it appeared she really didn't do a lot of work as well as complaining about some harassing behaviors. Of course I understand improving facilities and recreational spaces for students as when students are active they are living their best. On the other hand when I look at a percent change of student fees and I see the reflection of those fees in attitudes, in the work environment etc. It makes me wonder if we can save money or put it to more needed places by doing audits of salaries and job duties to see how vital certain jobs are on this campus especially when they are getting paid over six figures while receiving many behavioral complaints. It's unfortunate how certain systems are set up and this activity once again emphasizes this.
 
 
 When you are done, save your work, switch to GitHub Desktop, then add, commit and push your changes to GitHub and submit the URL of the notebook in ELMS.
