@@ -9,6 +9,7 @@ In this assignment, we will be working with a dataset containing information abo
 You will need to load the tidyverse library
 
 ```{r}
+library(tidyverse)
 ```
 
 Then you'll load the data from the web. The URL for the data is: https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/white_house_salaries_2026.csv. You will create a dataframe called `wh_salaries` that contains the data from this URL.
@@ -16,6 +17,7 @@ Then you'll load the data from the web. The URL for the data is: https://raw.git
 ### Task 2: Load the Data and Describe It
 
 ```{r}
+wh_salaries <- read_csv("https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/white_house_salaries_2026.csv")
 ```
 ### Task 3: Describe the Data
 
@@ -28,6 +30,7 @@ ANSWER HERE
 Write code to calculate the mean and median of the salaries in the dataset using the `summarize()` function. You don't need to make a new dataframe, just display the results.
 
 ```{r}
+wh_salaries |> summarize(mean_salary = mean(SALARY), median_salary = median(SALARY))
 
 ```
 
@@ -36,6 +39,7 @@ Write code to calculate the mean and median of the salaries in the dataset using
 Take the code you just wrote and add in the minimum and maximum salaries (the functions for that are `min()` and `max()`). Your results should show four columns: mean_salary, median_salary, min_salary, max_salary.
 
 ```{r}
+wh_salaries |> summarize(mean_salary = mean(SALARY), median_salary = median(SALARY), min_salary=min(SALARY), max_salary=max(SALARY))
 
 ```
 
@@ -44,9 +48,11 @@ Take the code you just wrote and add in the minimum and maximum salaries (the fu
 Write a couple of sentences describing the results of your analysis. What do the mean and median salaries tell you about the data? What do the minimum and maximum salaries tell you? Are there any outliers in the data?
 
 ANSWER HERE
+The data set was pretty much what I expected. I wasn't sure if the 0 on the salaries were a mistake. The mean and median salaries show that in a lot of cases salaries in the government seem to have a lot to do with your job. I also feel like connections and networking can land people in jobs wher they might necessarily be doing anything yet they get paid more than those that are doing 2x the amount of work. I go back to the example from student fees and how it's putting money in the pockets of people that might not necessarily be doing a lot. Money that could be spent elsewhere. If the 0 isn't a mistake, I feel like of course people would volunteer to work for the government.
 
 ### Task 7: Story Idea
 
 Based on the data, what is your best story idea? What is the next step you would take to develop that story idea?
 
 ANSWER HERE
+I'm not sure if it was a mistake, but I see people with similar position titles making 0 dollars while others make upwards of $190k a year. I find that very interesting, but it also makes me wonder what all of the jobs actually entail and what people actually do. If possible I would begin to interview names on the list, specifically those with similar position titles and a big discrepancy in pay wages. If it was a mistake or they are just volunteers I feel like that would be an even more interesting topic to cover. What is the value that they bring to the government. Do they have inside information especially those with access to Trump. I also would like to look at certain connections and networks in the government. Is it just friends and colleagues looking out for each other in most cases to keep their pockets filled? As time goes on my trust of the government depletes and activities like this make me question pretty much everything about our society, so trying to find the foundation of a story and really highlight and emphasize the building blocks of said story seem to grow more difficult and intricate as things continue to worsen.
