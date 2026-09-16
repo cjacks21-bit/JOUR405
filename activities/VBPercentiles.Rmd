@@ -39,6 +39,7 @@ team_aces |> mutate(percentile = ntile(total_aces, 100))
 
 Write a couple of sentences that puts Maryland into context with the other teams in the dataset. You can do some Internet research to help with this.
 
+Maryland led the Big Ten in aces and were top 20 in the country. When looking at the percentages and percentiles, it raises questions about competition to me. When we take a look at Oregon who is in the 86th percentile they finished top four in the conference. When looking at Maryland they finished bottom four in the  conference. I saw a few HBCU teams in the top 10 of aces and the top two percentile of aces, but it seems as though competition has a lot to do with where you end up on this list. The national champion came out of the Big Ten. It seems as though you still want to have a high percentage of aces, but not too high as you want quality opponents to battle test you as you go through the season. 
 
 
 When you are done, save your work, switch to GitHub Desktop, then add, commit and push your changes to GitHub and submit the URL of the notebook in ELMS.
