@@ -69,3 +69,29 @@ The only that remains is was it because of the COVID-19 pandemic, or did their p
 ### Task 9: Save Your Work and Put it on GitHub
 
 Save this notebook, then commit it to your local repository. Push the changes to your GitHub repository and submit the URL for this file in ELMS.
+
+
+### Task 10: take the violent crime rates for 2020 and do three things:
+
+Using the 2020 violent crime rate, calculate the percentiles using `ntile()`. Save the results to a new dataframe called `md_cities_percentiles`. How many cities are above the 90th percentile?
+
+
+```{r}
+  md_cities_percentiles <- md_cities_rates |> 
+  mutate(violent_percentile = ntile(violent_rate_2020, 100))
+```
+Answer Here
+Out of 137 cities, there are 11 that are above the 90th percentile.
+
+Calculate the Interquartile Range of the 2020 violent crime rate using `summarize()` and R's `IQR()` function. The syntax is similar to how `mean()` works.
+
+```{r}
+md_cities_percentiles |> summarize(violent_range = IQR(violent_rate_2020))
+```
+
+
+Do the results change your best story idea from the previous assignment? Why or why not?
+ANSWER HERE
+The results definitely change my story idea. After seeing Frederick in the 22nd percentile and Ocean City in the 100th, I feel like we found our story. Could it have to do with Senior week vacations, or the constant travel in and out of the city. I just find it really interesting and you think that Maryland would make sure its premiere beach town isn't in the 100th percentile in the state for violent crimes but that's just a thought. I also feel like seeing some of these random cities up over 90% are interesting as well because I haven't even heard of a good amount of them or you'd at least think they wouldn't be that high in the violent crime rate. 
+
+
