@@ -37,7 +37,7 @@ md_cities_rates <- md_cities |> mutate(violent_rate_2019 = violent2019/pop2019 *
 Examine the new dataframe, `md_cities_rates`, by clicking on it in the Environment tab in RStudio and sorting by the rate columns. Write a couple of sentences about the results, comparing and contrasting the cities with the highest rates (both violent and property) in 2019 and 2020. Do you see any patterns? What does this tell you about crime in Maryland cities? What's the story here?
 
 ANSWER HERE
-
+For me the most interesting thing was seeing Ocean City. Although when I saw the name it did make sense, beach/vacation town where people come in an out, and realisitically you probably think there's enough movement in and out of the city where you can get away with crimes, especially something like property crime. Sad to say but I almost expected to see Baltimore on top for violent crime rate, although it was pretty low for property crime, I expected it to be at least in the top 3 or five.
 
 ### Task 5: Calculate Percentage Change
 
@@ -47,7 +47,7 @@ Let's add two percentage change columns to your dataframe: one for violent crime
 md_cities_change <- md_cities_rates |>
   mutate(violent_change = (violent_rate_2020 - violent_rate_2019) / violent_rate_2019*100) |>
   mutate(property_change = (property_rate_2020 - property_rate_2019) / property_rate_2019*100)
-  ```
+```
   
 
 ### Task 7: Describe Percentage Changes
@@ -55,12 +55,16 @@ md_cities_change <- md_cities_rates |>
 Look at the `md_cities_change` dataframe by clicking on it in the Environment tab in RStudio. Write a couple of sentences describing the percentage change results. What's more interesting here, the patterns or the outliers? What's the story in the data?
 
 ANSWER HERE
+I feel like in this situation since we're looking at the years right before and when the pandemic hit, outliers are even more interesting than they would normally be. You see places with almost no violent crime before the pandemic and right after we see a big increase. After seeing Ocean City in the last example, I'd be more inclined to see how many crimes happen in counties where the people don't reside. Frederick is someplace that really intrigues me because they went from a ton of violent crime in 2019 to a 95% decrease and there is no way that's just because of the pandemic. 
 
 ### Task 8: Tell the Best Story
 
 Write up a lede and nutgraf of a story with the _best_ story idea you've found in this assignment. The lede should be a single sentence that summarizes the most important information in the data. The nutgraf should be a paragraph that provides more context and explains why the data is important.
 
 ANSWER HERE
+Frederick, Maryland decreased violent crime by 95% and property crime by 90%.
+
+The only that remains is was it because of the COVID-19 pandemic, or did their police force tighten up? We took crime statistics from every city in Maryland from the year before and when the pandemic hit and some of the findings were interesting to say the least. Violent crime cases in Baltimore led the state in both years, yet they saw a 25% decrease in 2020 from 2019. It seems as violent crime rose more during 2020 than 2019, even though Maryland residents were locked inside the house most of the time after March 2020.
 
 ### Task 9: Save Your Work and Put it on GitHub
 
