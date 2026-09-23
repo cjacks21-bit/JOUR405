@@ -46,7 +46,7 @@ car_thefts |>
 
 ### Task 6: Describe your results
 
-Is the distribution normal or skewed in one direction? Write a sentence in which you describe the range of the data covered by one standard deviation from the mean on both sides - how much of the data falls in that range?
+Is the distribution normal or skewed in one direction? Write a sentence in which you describe the range of the data covered by one standard deviation from the mean on both sides - how much of the data falls in that range? I would say this is a normal distribution. When looking at one standard deviation from the mean, it seems as though at least 68% of data falls between one standard deviation of the mean. When taking in the mean and standard deviation we see that between eight and 17 cars are stolen each day. 
 
 
 
