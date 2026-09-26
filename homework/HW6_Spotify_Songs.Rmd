@@ -43,6 +43,10 @@ spotify_songs |>
 Write code to add a vertical line to the histogram for the mean danceability score, based on the example in class.
 
 ```{r}
+spotify_songs |> 
+geom_vline(aes(xintercept = mean(danceability)), color = "red", linetype = "dashed", size = 1)
+
+
 ```
 
 ### Task 6: Describe our results
