@@ -60,7 +60,7 @@ Now let's create a time series visualization of car thefts:
 # Plot time series
 ggplot(car_thefts, aes(x = month, y = total)) +
   geom_line() +
-  geom_point() +
+    geom_point() +
   theme_minimal() +
   labs(title = "Monthly Car Thefts (2017-2025)",
        x = "Month",
@@ -294,3 +294,5 @@ cat(sprintf("Actual data - proportion of months this high or higher: %.4f (%.2f%
 ```
 
 The `pnorm()` estimate and the actual proportion won't match perfectly — `pnorm()` assumes a normal distribution, and real data is never perfectly normal. But they should be in the same ballpark, and the comparison helps us see how well the normal model fits.
+
+### This is why MOST times when I leave my Kia Optima running... I have my wheel lock on. I should stop :/
