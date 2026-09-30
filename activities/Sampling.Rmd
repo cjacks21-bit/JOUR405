@@ -5,23 +5,60 @@ title: "Sampling"
 Follow along with the demo to learn how to sample data from a population using R and the Tidyverse. You should get started by loading the tidyverse in a new R block.
 
 ### Task 1: Load the tidyverse
+```{r}
+library(tidyverse)
+```
+
 
 
 ### Task 2: Load 1,000 rows of data with the ages of people from 18-80
+```{r}
+set.seed(4)
+
+population <- tibble(
+  age = sample(18:80, 1000, replace = TRUE)
+)
+
+```
+
 
 
 ### Task 3: Sample 100 rows of data from the dataset
+```{r}
+sample <- population |>
+  sample_n(5)
+
+```
+
 
 
 ### Task 4: Calculate the mean age and standard deviation of the sample
+```{r}
+sample5 |>
+  summarize(
+    mean_age = mean(age),
+    sd_age = sd(age)
+  )
+```
+
 
 
 ### Task 5: Calculate the mean age and standard deviation of the population
+```{r}
+population |>
+  summarize(
+    mean_age = mean(age),
+    sd_age = sd(age)
+  )
+```
+
 
 
 ### Task 6: Compare the sample and population statistics
+The sample and population statistics are very similar. The mean age was almost identical while the standard deviation was off by about 1. It does make sense as the population was 1000 and the sample was 100, so the differences shouldn't have been that far off since it's all the same values just less volume. It's kind of like NBA players with volume and effeciency. Steph is going to shoot 12+ threes a game and makes at least 4. Another (worse) shooter could shoot 4 threes and make 1-2 a game. It's a different volume but similar effeciency. 
 
 Compare the means and standard deviations. Are they similar? Go back and re-run the sampling and statistics calculations with a smaller sample size. How do the results change?
+When I lower the sample, the mean changes. With less to sample from, there is going to be a greater difference in the average due to lower volume in the set. The standard deviation lowers a little bit due to the lack of volume as well, with less input, there is going to be lower deviation from the mean, but in some cases it could raise the standard deviation just depending on the values selected. 
 
 
 
