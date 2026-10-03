@@ -122,14 +122,14 @@ Now, using the accidents dataframe, add three columns using `mutate()`: mean_acc
 # Calculate z-scores for total accidents
 accidents <- accidents |>
   mutate(
-    mean_accidents = mean(accidents),
+    mean_accidents = mean(total),
     sd_accidents = sd(total),
     z_score = (total - mean_accidents) / sd_accidents
   )
 
 # Display the data with z-scores
 accidents %>%
-  select(date, day_of_week, total, z_score)%>%
+  select(date,day_of_week, total, z_score)%>%
   head(10) %>%
   kable(digits = 2)
 ```
@@ -160,6 +160,7 @@ unusual_days |>
 Choose one of the top 10 unusual days and research what might have happened on that date. Look for weather events, holidays, major incidents, or other factors that could explain the unusual number of accidents. Briefly describe your findings and how you would incorporate this context into a story.
 
 ANSWER HERE
+So for Friday, October 29, 2021, I looked it up, and the AI overview said PG county saw historic flooding, so of course I thought it wasn't actually real. I'm still going to say Halloween weekend had a lot to do with what was going on on top of the historic flooding that Maryland Gov. Larry Hogan actually declared a state of emergency for some, specifically costal areas around the state. PG county wouldn't really fall in that jurisdiction, but I'm sure the rainfall was still bountiful. In a WTOP article from  Jack Moore and Jessica Kronzer they mentioned that Hogan said, “Even if you are accustomed to nuisance flooding, this is much more serious and has the potential to be much more damaging over the course of the next 24 hours.” I also went to a weather condition finder and apparently there were conditions of heavy rain, almost or over three inches of rain and 40 mph gusts.
 
 Let's visualize these unusual days:
 
@@ -189,9 +190,9 @@ Let's calculate z-scores that account for day of week patterns based on the same
 accidents <- accidents |>
   group_by(day_of_week) |>
   mutate(
-    dow_mean = REPLACE_ME,
-    dow_sd = REPLACE_ME,
-    dow_z_score = (REPLACE_ME - REPLACE_ME) / REPLACE_ME
+    dow_mean = mean(total),
+    dow_sd = sd(total),
+    dow_z_score = (total - dow_mean) / dow_sd
   ) |>
   ungroup()
 
@@ -211,7 +212,7 @@ unusual_dow |>
 Compare the days that have extreme z-scores overall versus those with extreme day-of-week z-scores. How do these lists differ? What journalistic insights can you draw from comparing these two different approaches to measuring "unusual" days?
 
 ANSWER HERE
-
+Even though the highest total accidents happen during the weekend, the week still is consistently filled with days that see big increases due to possible travel days, rush hour and early mornings. We also see that extreme overall is heavily skewed to the weekend as I mentioned earlier, but day of the week z-score gives you a better picture in totality. The first one is just, it's dangerous on the weekend and you'll be safe on Monday. The day of the week shows you that every day of the week can almost end up however, but you'll really only ever see those days with no accidents on a Sunday or Monday or during a pandemic. When you use these insights you can draw a more complete picture of how accidents shake out each day of the week.
 Let's see how many unusual days we have for each day of the week:
 
 ```{r unusual-by-dow}
@@ -290,6 +291,7 @@ unusual_monthly |>
 Based on the monthly pattern analysis, which months have the highest and lowest average accidents? Develop a hypothesis about why these seasonal patterns exist.
 
 ANSWER HERE
+As the year goes on the more accidents on average each day are higher. This could have a lot to do with actively traveled days closer to the end of the year like Christmas, Thanksgiving, Halloween and a lot more. To begin the year people are cautious trying to start new, and not crash their car. Sometimes the year just gets harder and you care less, and when you care less behind the wheel you're more prone to cause accidents. 
 
 ## Identifying Extreme Outliers
 
@@ -315,8 +317,10 @@ if(nrow(extreme_outliers) > 0) {
 For the extreme outliers identified (z-scores beyond ±3), what do they have in common?
 
 ANSWER HERE
+The z-scores greater than 3 were all on the weekend. Those less than three, one was on the weekend but a Sunday, the other was a Monday. They are all after mid March also which feeds into the trend of more accidents on average each day as the year goes on. 
 
 ## Your Best Story Pitch
 
 ### Task 10 (5 points)
 Based on all the analyses performed, craft your best story pitch, including a headline and lede. Be sure to include what kinds of sources/people you'd talk to for the story.
+I think my best pitch for this would be mental health and driving. PG county is a very interesting case study as well just because of the demographics, but I'd like to interview drivers as the year goes on, see how their morale changes and different things like that. I'd like to talk to traffic experts, maybe repair/mechanic shops to see when they get super busy and why maybe I feel like they can offer some good insight especially the one I take my car to, Ali is a character. I also feel like talking to sociologists would work out or maybe psychologists and professors to help understand the findings. The headline would be something along the lines of, "Does mental health influence your driving (habits.)" We used data and talked to 5 sectors, drivers, psychologists, sociologists, mechanics and professors to find out the truth.
