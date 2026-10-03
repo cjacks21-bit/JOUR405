@@ -32,7 +32,7 @@ library(lubridate)  # For working with dates
 Load the accident data from our CSV file at https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/daily_accidents.csv into a dataframe called `accidents`:
 
 ```{r load-data}
-accidents <- read.csv("https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/daily_accidents.csv")
+accidents <- read_csv("https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/daily_accidents.csv")
 ```
 
 ## Data Exploration
@@ -69,6 +69,7 @@ ggplot(accidents, aes(x = date, y = total)) +
 Looking at the time series visualization above, identify at least two noticeable patterns or anomalies. What questions would you want to investigate further based on this initial view of the data? How might these visual patterns translate into potential story angles?
 
 ANSWER HERE
+One pattern I notice is the dip around 2020 due to the pandemic. Less people on the roads meant less accidents, and then right after you start seeing a climb. Another one I noticed was the increase especially on high traveled days or times like Halloween weekend where a lot of people could've been intoxicated and driving late. Also right around Memorial Day you see a huge increase especially right after COVID restrictions lifted, you see the highest number at that time. When you have these visual patterns you can almost pinpoint outliers, but also identify trends over eras and times of year.
 
 The daily data is quite noisy, so let's also look at weekly patterns:
 
@@ -80,6 +81,7 @@ accidents <- accidents |>
     month = floor_date(date, "month"),
     year = year(date)
   )
+
 
 # Check accident patterns by day of week
 day_of_week_summary <- accidents |>
@@ -108,6 +110,7 @@ ggplot(accidents, aes(x = day_of_week, y = total)) +
 Based on the day-of-week analysis, which day(s) have the highest and lowest average accidents? Why might these patterns exist?
 
 ANSWER HERE
+You have the higest average accidents on Fridays and Saturdays the two most prime weekend nights especially for the younger crowd. You still see a higher increase on Sunday, but people are inside earlier on Sundays spending time with family. When you look at the lowest it's Monday-Thursday. Not much late night drivers but you still have rush hours due to school and work in the morning and evening.
 
 ## Calculating Z-Scores
 
@@ -119,15 +122,15 @@ Now, using the accidents dataframe, add three columns using `mutate()`: mean_acc
 # Calculate z-scores for total accidents
 accidents <- accidents |>
   mutate(
-    mean_accidents = REPLACE_ME,
-    sd_accidents = REPLACE_ME,
-    z_score = (REPLACE_ME - REPLACE_ME) / REPLACE_ME
+    mean_accidents = mean(accidents),
+    sd_accidents = sd(total),
+    z_score = (total - mean_accidents) / sd_accidents
   )
 
 # Display the data with z-scores
-accidents |>
-  select(date, day_of_week, total, z_score) |>
-  head(10) |>
+accidents %>%
+  select(date, day_of_week, total, z_score)%>%
+  head(10) %>%
   kable(digits = 2)
 ```
 
