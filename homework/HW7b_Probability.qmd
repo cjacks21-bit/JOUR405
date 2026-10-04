@@ -9,6 +9,8 @@ In this assignment, you'll build on your z-score skills to answer probability qu
 Load the tidyverse and the White House salaries data from https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/white_house_salaries_2025.csv into a dataframe called `wh_salaries`
 
 ```{r}
+library(tidyverse)
+wh_salaries <- read_csv("https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/white_house_salaries_2025.csv")
 ```
 
 ### Task 2: Filter and summarize (2 points)
@@ -17,15 +19,28 @@ You may remember from HW3 that some White House staffers have a salary of $0. Le
 
 ```{r}
 wh_paid <- wh_salaries |>
-  filter(SALARY > 0)
-
-
+  summarize(
+    mean_salary = mean(SALARY),
+    median_salary = median(SALARY),
+    max_salary = max(SALARY),
+    min_accidents = min(total)
+  )
+    filter(SALARY > 0)
+mutate(
+  mean_salary = mean(SALARY),
+  sd_paid = sd(SALARY),
+  min(wh_salaries$SALARY),
+max(wh_salaries$SALARY)
+)
 
 ```
 
 Now create a histogram of the paid salaries with a vertical line for the mean and two more for ±1 standard deviation, similar to what you did in HW6 with Spotify data.
 
 ```{r}
+wh_salaries |> 
+  ggplot() + 
+  geom_histogram(aes(x = SALARY), binwidth = 10) 
 ```
 
 **Describe the shape of the distribution. Is it roughly normal? Skewed? Where do most salaries cluster?**
