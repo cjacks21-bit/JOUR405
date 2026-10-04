@@ -19,33 +19,35 @@ You may remember from HW3 that some White House staffers have a salary of $0. Le
 
 ```{r}
 wh_paid <- wh_salaries |>
-  summarize(
-    mean_salary = mean(SALARY),
-    median_salary = median(SALARY),
-    max_salary = max(SALARY),
-    min_accidents = min(total)
+      filter(SALARY > 0)
+wh_paid |>
+summarize(
+    avg_paid = mean(SALARY),
+    median_paid = median(SALARY),
+    max_paid= max(SALARY),
+    min_paid = min(SALARY),
+    sd_paid = sd(SALARY)
   )
-    filter(SALARY > 0)
-mutate(
-  mean_salary = mean(SALARY),
-  sd_paid = sd(SALARY),
-  min(wh_salaries$SALARY),
-max(wh_salaries$SALARY)
-)
+
+
 
 ```
 
 Now create a histogram of the paid salaries with a vertical line for the mean and two more for ±1 standard deviation, similar to what you did in HW6 with Spotify data.
 
 ```{r}
-wh_salaries |> 
+wh_paid |> 
   ggplot() + 
-  geom_histogram(aes(x = SALARY), binwidth = 10) 
+  geom_histogram(aes(x = SALARY), binwidth = 11000) +
+  geom_vline(aes(xintercept = mean(SALARY)), color = "red", linetype = "dashed", linewidth = 1) +
+  geom_vline(aes(xintercept = mean(SALARY) - sd(SALARY)), color = "blue", linetype = "dashed", linewidth = 1) +
+  geom_vline(aes(xintercept = mean(SALARY) + sd(SALARY)), color = "blue", linetype = "dashed", size = 1)
 ```
 
 **Describe the shape of the distribution. Is it roughly normal? Skewed? Where do most salaries cluster?**
 
 ANSWER HERE
+The distribution is definitely skewed to the left with most salaries clustering around $60,000 to about $90,000. 
 
 ### Task 3: The Empirical Rule (3 points)
 
@@ -80,6 +82,7 @@ empirical
 **How closely does the data follow the empirical rule? What does any deviation tell you about the distribution?**
 
 ANSWER HERE
+The data follows somewhat closesly, we fall behind on the 68 and 95 rule, but we are all covered by the 99.7 rule which I guess could be a cheat code to make a distribution normal when the rest of the data doesn't neccisarily fit the distribution. I still don't know if I would consider this a normal distribution since it doesn't meet the 68 and 95 rule exaclty, I think this distribution continues to show how irregular these wages are. 
 
 ### Task 4: From z-scores to probability with pnorm() (4 points)
 
@@ -118,6 +121,7 @@ actual_prob
 **Write a sentence describing this probability in plain English. How does the normal approximation (prob_less) compare to the actual percentage?**
 
 ANSWER HERE
+The normal approximation would mean there are less but around the same amount of people getting paid above $150,000. The actual percentage shows us that around 18% of people get paid above $150,000, so they are pretty comparible, but not exact.
 
 ### Task 5: Probability between two values (3 points)
 
@@ -127,14 +131,14 @@ You'll need to calculate z-scores for those two figures, use `pnorm()` for each,
 
 ```{r}
 
-z_lower <- (REPLACE_ME - mean_sal) / sd_sal
-z_upper <- (REPLACE_ME - mean_sal) / sd_sal
+z_lower <- (80000 - mean_sal) / sd_sal
+z_upper <- (120000 - mean_sal) / sd_sal
 
 prob_between <- pnorm(z_upper) - pnorm(z_lower)
 prob_between
 
 # Verify with actual data
-actual_between <- sum(wh_paid$SALARY >= REPLACE_ME & wh_paid$SALARY <= REPLACE_ME) / total_n
+actual_between <- sum(wh_paid$SALARY >= 80000 & wh_paid$SALARY <= 120000) / total_n
 actual_between
 
 ```
@@ -142,6 +146,7 @@ actual_between
 **Interpret this result. What does this "middle range" tell us about the White House salary structure?**
 
 ANSWER HERE
+When looking at the aproximation, about 36% of people are paid between $80,000 and $120,000. The actual data shows us that around 33% of people are paid between the same rates. The average is $111,321.7, so this does seem pretty normal. 
 
 ### Task 6: Expected vs. observed (3 points)
 
@@ -174,6 +179,7 @@ bins |> select(category, expected_count, observed_count, difference)
 **Where does reality differ most from what the normal distribution predicts? What might explain those differences?**
 
 ANSWER HERE
+Reality differs most when we talk about the outliers. There are people making over $200,000 while others make less than $60,000 and it seems as though they do the same job or have similar responsibilities. Reality brings about things that a data set can only contain, but we have to take the context in order to analyze what we are seeing. Reality gives us more exact numbers with real characters than just giving a baseline rate with little to no nuance. 
 
 ### Task 7: Story pitch (4 points)
 
@@ -182,6 +188,10 @@ Based on your probability analysis, write a headline and lede for a story about 
 Then write 2-3 sentences describing how you would use probability thinking to advance this story — what could you compare these probabilities to, and what additional analysis would help?
 
 ANSWER HERE
+White House Employees make an average around $111,000, the outliers might shock you
+We acquired salaries from White House Employees, some make more than you might think while others literally make nothing.
+
+Around 33% of White House Employees are paid between $80,000 and $120,000. Questions have been raised when looking at the 77% that do not get paid between those two rates. I would probably then go into checking for how many are paid above and below that rate, while also bringing in the volume, because if there are more people getting paid below that range than above, even more questions could be raised especially when we look at the top earners. 
 
 ### Task 8: Save Your Work and Put it on GitHub
 
