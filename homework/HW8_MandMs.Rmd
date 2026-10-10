@@ -5,27 +5,56 @@ title: "HW8_MandMs"
 In this assignment, you'll be picking up where you left off with the M&Ms activity. You'll load the data and perform some basic statistical analysis. Follow the steps below to complete the assignment.
 
 ### Task 1: Load the tidyverse
+```{r}
+library(tidyverse)
+```
+
 
 
 ### Task 2: Load the M&Ms dataset from https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/mandms.csv
+```{r}
+candy <- read_csv("https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/mandms.csv")
+```
+
 
 
 ### Task 3: Sample 5 rows of data from the dataset
+```{r}
+set.seed(42)
+sample_5 <- candy |> sample_n(5)
+```
+
 
 
 ### Task 4: Calculate the mean age and standard deviation of the sample, using either the red or black number of M&Ms
+```{r}
+mean(sample_5$red)
+sd(sample_5$red)
+
+```
+
 
 
 ### Task 5: Calculate the mean age and standard deviation of the population, using the same measure as in Task 4
+```{r}
+mean(candy$red)
+sd(candy$red)
+
+mean(candy$total)
+sd(candy$total)
+```
+
 
 
 ### Task 6: Compare the sample and population statistics
 
 Compare the two sets of means and standard deviations. Are they similar?
+When looking at both sets of means and standard deviations, we can see they aren't too far off. Red values go as low as 45 and as high as 117 in totality but in the sample the range is 66-94. Although it is not as great the values are going to be higher than the mean unless it got a really low value in the sample. The standard deviation is greater in totality just because there is more variation in the data set compared to the sample. The two sets are actually pretty similar but I'd be interested to see if more tests would show greater differences between the two. 
+
 
 ### Task 7: Describe the results
 
-Write a few sentences about what you found in the data. What does this tell you about the M&Ms dataset and about the act of random sampling?
+Write a few sentences about what you found in the data. What does this tell you about the M&Ms dataset and about the act of random sampling? What I have found in this data and through this week is that volume truly is the greatest mark to break down statistics and actually apply them in a correct and translatable way. I feel like seeing the samples with 5 or even 50 it has shown me how stories can be essentially incorrect due to a lack of proper sampling. What I also found in the data is how random samples can be reflective of the population, but in some cases it might not represent the totality of things at all just because you have a small subset of a population. 
 
 
 When finished, save your work, switch to GitHub Desktop, then add, commit and push your changes to GitHub and submit the URL of the notebook in ELMS.
