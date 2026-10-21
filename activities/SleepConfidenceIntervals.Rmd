@@ -42,6 +42,7 @@ sleep_stats
 **Answer this question:** Based on these numbers alone, what would you tell the health reporter? Why might it be risky to report the average as the definitive answer for all students?
 
 ANSWER HERE
+I'd tell the health reporter that students on this campus, for the most part are getting the CDC amount of recommended sleep at night, of course some are sleeping more, some sleep less. It might be risky because these are all for the most part journalism students in the middle of their college careers. Masters students and freshman will look different as well as engineering majors or student athletes. This sample is not indicative of the entire school population, maybe it would be indicative of journalism students though.
 
 ### Task 3: Calculate the standard error
 
@@ -59,6 +60,7 @@ sleep_stats
 **Answer this question:** The standard error is much smaller than the standard deviation. Why? What does each one measure?
 
 ANSWER HERE
+With a smaller standard error we're able to quantify how accurate the data may be. Standard deviation is just going to essentially be the range for the mean, how high and how low does our data stretch. If we had higher samples, the standard error could go higher or lower. If the standard error is bigger there is more uncertainty in the data, smaller means it's pretty indicative of the population.
 
 ### Task 4: Calculate a 95% confidence interval
 
@@ -80,6 +82,7 @@ sleep_stats |>
 **Answer this question:** Write one sentence explaining what this confidence interval means in plain English that a reader would understand.
 
 ANSWER HERE
+Confidence interval is kind of like z-score, it allows us to highlight variance in the data and shows us the lowesest end and highest end of our average. Of course there are values outside of it, but it really gives you a higher confidence on what the popluation truly looks like. 19/20 the mean will be between the higher and lower bound.
 
 ### Task 5: Visualize the distribution with the confidence interval
 
@@ -113,6 +116,7 @@ ggplot(sleep_data, aes(x = hours)) +
 **Answer this question:** Look at the chart. Notice that the confidence interval is much narrower than the spread of individual data points. Why? What's the difference between the variation in individual sleep hours and the uncertainty about the average?
 
 ANSWER HERE
+The confidence interval narrows in on the area of the mean. The difference between the variation in individual sleep hours and the uncertainty about the average comes from the week, day and time of year the poll took place. I got around 10 hours of sleep last night but Sunday going into Monday I got about 6 or 7 hours. The more accurate, although more difficult poll would be to average sleep hours over a year, or time period and just add the average as individual values and then average the average.
 
 ### Task 6: The CDC question — is 7 hours within the interval?
 
@@ -135,6 +139,7 @@ sleep_stats |>
   c) "Survey: Students Getting Recommended Amount of Sleep"
 
 ANSWER HERE
+Survey: Students Getting Recommended Amount of Sleep. It leads you into the story and when people see there is a survey they are more intrigued because they can see input from real people. I thought we need 8 hours of sleep so the 7 might make some people think that it's bad. You also can get into the statistics and numbers in the story, you don't need it in the headline.
 
 ### Task 7: What about a bigger sample?
 
@@ -168,6 +173,7 @@ comparison
 **Answer this question:** How did the margin of error change? What does this tell you about the relationship between sample size and certainty?
 
 ANSWER HERE
+The margin of error was lower, meaning less margin for error meaning more accurate data and more volume to truly narrow in the specifics.
 
 ### Task 8: Journalistic interpretation
 
@@ -176,3 +182,4 @@ You now have all the statistics you need. Based on what you've calculated:
 Write a headline and a one-paragraph lede for a campus news story about student sleep habits. Your text should accurately reflect the confidence interval — don't overstate or understate the findings.
 
 ANSWER HERE
+Philip Merrill College of Journalism students are getting CDC recommended amount of sleep a recent survey shows.
