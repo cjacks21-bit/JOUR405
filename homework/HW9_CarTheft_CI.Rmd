@@ -9,6 +9,8 @@ Your editor wants to know what a "typical" month of car thefts looks like in Pri
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+
 # LOAD THE TIDYVERSE
 ```
 
@@ -31,6 +33,7 @@ glimpse(car_thefts)
 We'll make a line chart using geom_line() to try and illustrate any trend over time. What's your initial reaction to the change in car thefts? Is there a trend? If your editor asked you "how many car thefts happen in a typical month?", what would you say based on this chart alone?
 
 PUT ANSWERS HERE
+There has been a drastic decrease in car thefts in pg county over the past few years apparently. I'd say in 2026 each month there are no more than 300 cars being stolen on the high end, but usually less, however in previous years 300 would be on the low end, showing how pg county has gotten better when it comes to car thefts. The decrease actually doesn't make sense especially when talking about the crime of opportunity increase for cars in the winter. 
 
 ```{r}
 
@@ -61,9 +64,9 @@ We've got a small number of months, so we need to quantify the uncertainty aroun
 theft_summary <- car_thefts |>
   summarize(
     mean_thefts = mean(total),
-    sd_thefts = sd(REPLACE_ME),
+    sd_thefts = sd(total),
     months = n(),
-    se_thefts = sd_thefts / sqrt(REPLACE_ME),
+    se_thefts = sd_thefts / sqrt(32),
     margin_error = qt(0.975, df = months - 1) * se_thefts
   )
 
@@ -75,7 +78,7 @@ theft_summary
 **Answer this question:** Explain in your own words what the margin of error tells us here. If you were writing a story, how would you use this number? For example, how would you complete this sentence: "Prince George's County averages about ___ car thefts per month, plus or minus ___."
 
 PUT ANSWERS HERE
-
+The margin of error tells us the plus or minus range that the true population of what we're studying is likely to fall in. The average is 375 car thefts so given margin of error you can plus or minus 34 to most likely find the value.
 ### Task 5: Build the confidence interval
 
 Now let's turn the margin of error into a full confidence interval — the range where we're 95% confident the true average falls. Replace the REPLACE_ME values.
@@ -84,8 +87,8 @@ Now let's turn the margin of error into a full confidence interval — the range
 
 theft_summary <- theft_summary |>
   mutate(
-    ci_lower = mean_thefts - REPLACE_ME,
-    ci_upper = mean_thefts + REPLACE_ME
+    ci_lower = mean_thefts - 34.18687,
+    ci_upper = mean_thefts + 34.18687
   )
 
 theft_summary |>
@@ -96,12 +99,14 @@ theft_summary |>
 **Answer this question:** If a county official claimed "car thefts are down to about 300 per month," does your confidence interval support that claim? What about a claim of 350 per month? Explain how the confidence interval helps you evaluate each claim.
 
 PUT ANSWERS HERE
+A county official would not be able to claim car thefts are down to about 300 per month due to the lower confidence interval being 341, around 307 with the margin error. On the high end it's not even close. They still wouldn't be able to claim 350 due to the high end as both values have to fit within the 300 or 350 basis, not just one. We as humans might have bias and want to make a claim, but the confidence interval makes us think twice about it because we can see the effects false claims might have especially when we literally have the data. In order to claim these statements they would have to edit them to since September 2025 PG county has not seen over 300 car thefts in a month. 
 
 ### Task 6: Visualize the data with the confidence interval
 
 Let's make a chart showing the data with the mean and the 95% confidence interval. Does this change anything about your answer from Task 3?
 
 PUT ANSWERS HERE
+Not necessarily as we can see towards the end of 2025 into 2026 car thefts in pg county have been well below the average and even below lower confidence interval. Car thefts are going down and this data genuinely illustrates that. That average is heavily skewed due to that 611 value, 611 car thefts in a month is genuinely insane but also it goes back to the crime of opportunity. People are outside in the summer and those that are driving might leave their cars running to cool it off.
 
 ```{r}
 # Make a chart with the mean and CI
@@ -134,11 +139,11 @@ In class we learned that MoE = 1/√n × 100 as a quick approximation for polls.
 hypothetical_summary <- tibble(
   mean_thefts = theft_summary$mean_thefts,
   sd_thefts = theft_summary$sd_thefts,
-  months = REPLACE_ME,
+  months = 40,
   se_thefts = sd_thefts / sqrt(months),
   margin_error = qt(0.975, df = months - 1) * se_thefts,
-  ci_lower = mean_thefts - margin_error,
-  ci_upper = mean_thefts + margin_error
+  ci_lower = mean_thefts - 40,
+  ci_upper = mean_thefts + 40
 )
 
 # Compare the two
@@ -157,16 +162,21 @@ comparison
 **Answer this question:** How did the margin of error and confidence interval change? What does this tell you about the tradeoff between having more data and being able to make precise claims? If you were covering crime trends, how many months of data would you want before writing a definitive story?
 
 PUT ANSWERS HERE
-
+The margin of error went down and both of the confidence intervals increased. If you have more data that might not be relevant to the trend it doesn't really help anyone. I'd want more months into 2026 and beyond because that can help to paint a more accurate picture on the present day. There is a lot of data skewed because of the past, but if they've been making an effort and it's been paying off, you don't want to highlight stuff from years ago unless it helps to emphasize how much better things have gotten. I'd want at least 36-48 months to show a 3-4 year time period, maybe even more because of public offices and leadership roles shifting. 
 ### Task 8: Reporting with uncertainty
 
 Based on everything you've calculated, answer the following:
 
 1. Write a headline and a one-paragraph lede about car thefts in Prince George's County. Your text should properly reflect the uncertainty in the data — don't overstate or understate what the numbers show.
+Prince George's County Car Thefts Take a Major Dip
+
 
 2. Your editor says "Just tell me if car thefts are going up or down." Using only the confidence interval (no significance testing yet), what's the most accurate answer you can give? What would you need to do next to answer that question more definitively?
 
 PUT ANSWERS HERE
+Toward the end of 2025 into 2026 Prince George's County has seen a significant decrease in car thefts. The county averaged around 375 thefts but each month and year has seen different results. Previously, anywhere from 300 thefts to over 440 before this recent trend. These numbers are pulled up due to a detrimental year in 2024 that saw each month above that 375 car theft average with the high at 611. PG county has not seen 300 car thefts in a month since Sept. 2026.
+
+Car thefts are going down as the lower confidence interval is significantly below the average before you even touch the margin of error value. Once you start to add in the margin of error you see how these numbers are decreasing. 
 
 
 When you are finished, save your work, switch to GitHub Desktop, then add, commit and push your changes to GitHub and submit the URL of the notebook in ELMS.
