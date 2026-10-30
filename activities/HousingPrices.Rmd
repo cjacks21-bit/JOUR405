@@ -49,8 +49,8 @@ Replace the REPLACE_ME values to calculate the mean, standard deviation and coun
 ```{r}
 new_stats <- home_data |> 
   summarise(
-    mean = mean(REPLACE_ME),
-    sd = sd(REPLACE_ME),
+    mean = mean(sale_price),
+    sd = sd(sale_price),
     n = n()
   )
 
@@ -60,6 +60,7 @@ new_stats
 **Answer this question:** How does the new average compare to the prior average of $285,000? How much higher is it in dollar terms? Does that seem like a big difference to you? What else would you want to know?
 
 ANSWER HERE
+The average of new home prices has gone up by around $19,000 and that is a pretty big increase. It seems as though the rail line brought up the averge, however it seems like the majority of the values still fall under the previous average and standard deviation rates, only a couple reach outside of the upper bound. I would want to know how these prices continue to change and if they fall after a little bit or continue to rise. I'd also want to know when the sales went down, are prices rising or were the prices just due to property reasons.
 
 ### Task 3: Visualize the distribution (1 point)
 
@@ -98,25 +99,25 @@ ggplot(home_data, aes(x = sale_price)) +
 **Answer this question:** Look at where the old average (red dashed line) falls relative to the new sales. How many of the 14 homes sold for more than the old average? What does the histogram tell you about the spread of the new prices?
 
 ANSWER HERE
-
+All of the new sales sold for more than the old average. The new average moves the needle up and when the needle is higher the average is higher which we can see that every single new sale is above the old average creating our new average of around 304k.The histogram highlights where we have been and where we are, but it also can show us trends and where we are going.
 ### Task 4: Set up and perform a hypothesis test (2 points)
 
 This is where we formally test the officials' claim. Fill in the REPLACE_ME values for the hypotheses and the t-test.
 
 **Hypotheses:**
 
-- **H₀ (Null):** REPLACE_ME
-- **H₁ (Alternative):** REPLACE_ME
+- **H₀ (Null):** There is no meaningful difference in sale prices.
+- **H₁ (Alternative):** There is a change in sale prices.
 
 ```{r}
 # Set the significance level
-alpha <- REPLACE_ME
+alpha <- 0.05
 
 # Perform a one-sample t-test
 # Since we want to know if home values INCREASED, we use alternative = "greater"
 t_test_result <- t.test(
   home_data$sale_price,
-  mu = REPLACE_ME,
+  mu = prior_mean,
   alternative = "greater"
 )
 
@@ -126,6 +127,7 @@ t_test_result
 **Answer this question:** Look at the p-value. Is it less than our alpha of 0.05? What does this mean for our null hypothesis — can we reject it? What can we now say about the officials' claim?
 
 ANSWER HERE
+It is lower than our alpha of 0.05. This means that the changes are significant and there is a meaningful difference between the two averages. Local officials are correct that the new line has increased sale prices. We can reject the null hypothesis.
 
 ### Task 5: Interpret the results with a confidence interval (2 points)
 
@@ -156,7 +158,7 @@ story_stats
 **Answer this question:** The 95% confidence interval tells us the range where the true average home price likely falls. Does that range include the old average of $285,000? What does that tell you?
 
 ANSWER HERE
-
+The new ranges has surpassed the old average of $285,000 completely. Both lower and upper bounds are higher than that 285k average which means there is a new range and we can genuienley confirm that the new line has increased sale prices, confirming the officials claim, although the previous range still is included in the new average, the average has gone up, the ranges have changed, so there is a meaningful change.
 ### Task 6: Calculate the effect size (3 points)
 
 We've established that the increase is statistically significant — it's real, not due to chance. But how big is it, really? We'll calculate Cohen's d to find out. The formula is:
@@ -166,7 +168,7 @@ We've established that the increase is statistically significant — it's real, 
 Replace the REPLACE_ME values.
 
 ```{r}
-effect_size <- (mean(new_prices) - REPLACE_ME) / REPLACE_ME
+effect_size <- (mean(new_prices) - mean(prior_mean)) / prior_sd
 
 effect_size_label <- case_when(
   abs(effect_size) < 0.2 ~ "Negligible",
@@ -186,6 +188,7 @@ tibble(
 **Answer this question:** The effect size is "medium." In dollar terms, the average increase is about $19,500. But remember that the standard deviation of home prices in this neighborhood was $32,000 *before* the transit line — meaning prices already varied by tens of thousands of dollars from sale to sale. Given that context, does a $19,500 increase seem large or modest? How does the effect size help you think about this differently than just looking at the dollar amount?
 
 ANSWER HERE
+Prices were very volatile before. With the increase in prices, the average was brought up solodifying some of the $32,000 sd that we saw before. We see the range is more defined with a 304k average, 297k lower bound and 311k upper bound. It is more exact and we can point to the increase in sales due to the new line. The increase already seems large as before we could see homes going for as high as 317k but as low as 253k. The new range eliminates that 253k as the lowest someone sold their house for now was 288k, still more than the old average. The effect size helps me realize how truly impactful the change is, but it also helps to illustrate the differences between the two time periods more explicitly.
 
 ### Task 7: What's the story? (6 points)
 
@@ -194,10 +197,11 @@ You now have all the statistical evidence. But writing the story requires more t
 **Part A:** The local officials are going to claim the transit line increased home values. Based on your analysis, is that claim supported? Write 2-3 sentences for the top of your story that accurately reflect both the statistical significance AND the effect size. Don't just echo the officials' talking points — interrogate them.
 
 ANSWER HERE
+The officials claim that the line increased home values is backed by recent data. The average went from 285k to 304k, but also homes used to sell for as low as 253k but as high as 317k. Every single home sold recently has brought in more than the previous 285k average. The average has increased and homeowners are now receiving higher compensation on average than before, which backs the officials claim.
 
 **Part B:** A $19,500 increase is real and statistically significant, but what *else* could explain rising home prices in this neighborhood? List at least two alternative explanations that a good reporter would want to investigate before attributing the increase entirely to the transit line.
 
 ANSWER HERE
-
+With the new line, there could be improvements to the district in general, local businesses or schools which could increase home value without particularly pointing straight at the line. We also could be in a boom with home buying where more people are looking to buy homes which means prices will go up. Is the city putting money into schools, businesses and restaurants that could be driving people to the location as well? If more houses are going up for sale due to the line, and people want to leave, there is going to be a lot more bidding on houses as well which could lead to higher home values.
 
 When you are finished, save your work, switch to GitHub Desktop, then add, commit and push your changes to GitHub and submit the URL of the notebook in ELMS.
