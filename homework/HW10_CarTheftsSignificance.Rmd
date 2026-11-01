@@ -1,6 +1,6 @@
 ---
 title: "HW10: Significance Testing & Effect Size"
-name: REPLACE WITH YOUR NAME
+name: Christian Jackson
 ---
 
 You previously calculated the mean, margin of error and confidence interval for monthly car thefts in Prince George's County. Your editor now wants to know: it _looks_ like car thefts are decreasing lately, but is that change real, and how big is it? In this assignment, you'll use significance testing and effect size to answer those questions. Load the tidyverse and the data to get started.
@@ -10,6 +10,7 @@ You previously calculated the mean, margin of error and confidence interval for 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 # LOAD THE TIDYVERSE
+library(tidyverse)
 ```
 
 ```{r}
@@ -47,6 +48,7 @@ t_test_periods
 **Answer this question:** What is the p-value? Is it less than 0.05? Can we reject the null hypothesis? What does this tell your editor?
 
 PUT ANSWERS HERE
+The p-value is less than 0.05 which means that we can reject the null hypothesis. This means that there might be a real change or cause and effect that we can look and point to. There is a meaningful difference.
 
 ### Task 3: Visualize the comparison (4 points)
 
@@ -57,11 +59,11 @@ Let's see the two periods side by side with their confidence intervals. Replace 
 period_summary <- car_thefts |>
   group_by(period) |>
   summarize(
-    mean_thefts = mean(REPLACE_ME),
+    mean_thefts = mean(total),
     sd_thefts = sd(total),
     months = n(),
     se_thefts = sd_thefts / sqrt(months),
-    margin_error = qt(0.975, df = REPLACE_ME - 1) * se_thefts,
+    margin_error = qt(0.975, df = 32 - 1) * se_thefts,
     ci_lower = mean_thefts - margin_error,
     ci_upper = mean_thefts + margin_error
   )
@@ -86,7 +88,7 @@ ggplot(aes(x = period, y = mean_thefts, fill = period)) +
 **Answer this question:** Look at the error bars (confidence intervals) on the chart. Do they overlap? What does that tell you about whether the difference between the two periods is real?
 
 PUT ANSWERS HERE
-
+The error bars do not overlap. This shows us that the difference between the two periods are real and significant. It also shows us just how drastic the decrease has been over the two halves.
 ### Task 4: Calculate the effect size (5 points)
 
 We've established that the decline is statistically significant. But how large is it? Let's calculate Cohen's d to measure the effect size. For a two-sample comparison, we use the pooled standard deviation:
@@ -106,11 +108,11 @@ second_half_stats <- period_summary |> filter(period == "Second Half")
 pooled_sd <- sqrt(
   ((first_half_stats$months - 1) * first_half_stats$sd_thefts^2 +
    (second_half_stats$months - 1) * second_half_stats$sd_thefts^2) /
-  (first_half_stats$months + second_half_stats$months - REPLACE_ME)
+  (first_half_stats$months + second_half_stats$months - 2)
 )
 
 # Calculate Cohen's d
-cohens_d <- (first_half_stats$mean_thefts - REPLACE_ME) / pooled_sd
+cohens_d <- (first_half_stats$mean_thefts - second_half_stats$mean_thefts) / pooled_sd
 
 # Interpret it
 effect_label <- case_when(
@@ -132,7 +134,7 @@ tibble(
 **Answer this question:** How would you describe this effect size? Compare it to the effect sizes we calculated in class (the response times activity had a small effect, the housing prices activity had a medium effect). What does a large effect size mean for the story you'd write about car thefts?
 
 PUT ANSWERS HERE
-
+The effect size is large which means the decrease is confirmed to be drastic. A 1.79 Cohen's d compared to the above .8 for high levels shows just how big of a difference it is. The large effect means that there has been a big difference that we can report on whether it be decrease in crime, the police improving patrols/response or maybe there is corruption in the numbers.
 ### Task 5: Putting it all together (7 points)
 
 You now have three pieces of evidence: the confidence intervals from last week, the significance test from this assignment, and the effect size.
@@ -140,9 +142,10 @@ You now have three pieces of evidence: the confidence intervals from last week, 
 1. In Part 1, your editor asked "just tell me if car thefts are going up or down". Now you have significance testing. Write 2-3 sentences telling your editor the answer, using all three pieces of evidence (CI, p-value, and effect size).
 
 PUT ANSWERS HERE
-
+The car thefts are going down and they are dropping at a very high rate. The decrease has shown a large interpretation from Cohen's d which means the standard deviation between the two groups is very large. This means the average and the range of the average decreased majorily between the two halves statistically.
 2. Write a headline and a 2-3 sentence lede for a story about car thefts in Prince George's County. Unlike the response times story from class (where the effect was small and the headline needed to be cautious), this is a case where the data strongly supports a clear conclusion. Your writing should reflect that — but still note the limitations (correlation vs. causation, what else might explain the decline).
 
 PUT ANSWERS HERE
+Car thefts in Prince George's County are decreasing as time goes on. Looking at February of 2024 the county saw 200 more thefts than in February of 2026 and the trend reflects the same numbers and the decrease throughout the years. This is a trend that continues to head towards a donward direction. 
 
 When you are finished, save your work, switch to GitHub Desktop, then add, commit and push your changes to GitHub and submit the URL of the notebook in ELMS.
