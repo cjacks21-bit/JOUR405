@@ -93,10 +93,13 @@ ggplot(nonvoters_data, aes(x = weight)) +
 **Questions:**
 
 1. What is the range of weights in this dataset?
+The range of weight is .2 to 3.
 
 2. What does it mean when a respondent has a weight of 0.23? What about 3.04?
+The respondent with .23 holds less weight or is more represented in the polls than those that are weighted 3.04, so politicians for example are trying to get those 3.04 scores rather than the .23 because they know they're going to vote.
 
 3. Why might some respondents be weighted more heavily than others?
+Some vote more often than others, they also could belong to marginalized groups or more represented groups, it all depends on the person. Income, gender and family and a lot of other variables factor into this.
 
 # Exercise 1: Voter Categories and Weighting
 
@@ -232,7 +235,10 @@ kable(comparison, digits = 1, caption = "Difference Between Weighted and Unweigh
 **Answer These Questions:**
 
 1. Which voter category shows the biggest difference between weighted and unweighted results?
+We see the biggest difference in the rarely/never category and we see that including the weight means that when you take into account who in that category is actually going to vote the % is not as high as certain groups still aren't going to vote.
 
 2. How might these differences affect reporting on likely voter turnout?
+You have to take into account weight or at least play down the previous numbers when you've taken into account the weight. The difference isn't big but not disclosing the information is definitely a decision as well. Your story doesn't change drastically, but it does change, and we in the journalism field are supposed to note all the changes. 
 
 3. Why do you think these differences exist? What does this tell us about who might be over or under-represented in the sample?
+The differences exist because some people's voice matters more in the polls than others and that's just historically proven. Different groups show out in different elections and certain groups weigh more than others when you look at the population of America, certain counties or states. When you weigh things you can take into account certain variables that effect voter turnouts that can create a more accurate poll.
