@@ -6,7 +6,7 @@ library(janitor)
 
 
 ```{r}
-# All data from Basketball Reference rookie year up to last year.
+# All data from Basketball Reference rookie year up to last year. It starts with his rookie year and ends with his more current full year (last year).
 
 draymond_rookie <- read_csv("Draymond2012.csv")
 
@@ -32,7 +32,7 @@ draymond_2014 <- read_csv("Draymond2014.csv")
 ```{r}
 # 2015-2016
 
-draymond_rookie <- read_csv("Draymond2015.csv")
+draymond_2015 <- read_csv("Draymond2015.csv")
 
 ```
 
@@ -41,69 +41,69 @@ draymond_rookie <- read_csv("Draymond2015.csv")
 ```{r}
 # 2016-2017
 
-draymond_rookie <- read_csv("Draymond2016.csv")
+draymond_2016 <- read_csv("Draymond2016.csv")
 
 ```
 
 ```{r}
 # 2017-2018
 
-draymond_rookie <- read_csv("Draymond2017.csv")
+draymond_2017 <- read_csv("Draymond2017.csv")
 
 ```
 
 ```{r}
 # 2018-2019
 
-draymond_rookie <- read_csv("Draymond2018.csv")
+draymond_2018 <- read_csv("Draymond2018.csv")
 
 ```
 
 ```{r}
 # 2019-2020
 
-draymond_rookie <- read_csv("Draymond2019.csv")
+draymond_2019 <- read_csv("Draymond2019.csv")
 
 ```
 
 ```{r}
 # 2020-2021
 
-draymond_rookie <- read_csv("Draymond2020.csv")
+draymond_2020 <- read_csv("Draymond2020.csv")
 
 ```
 
 ```{r}
 # 2021-2022
 
-draymond_rookie <- read_csv("Draymond2021.csv")
+draymond_2021 <- read_csv("Draymond2021.csv")
 
 ```
 
 ```{r}
 # 2022-2023
 
-draymond_rookie <- read_csv("Draymond2022.csv")
+draymond_2022 <- read_csv("Draymond2022.csv")
 
 ```
 
 ```{r}
 # 2023-2024
 
-draymond_rookie <- read_csv("Draymond2023.csv")
+draymond_2023 <- read_csv("Draymond2023.csv")
 
 ```
 
 ```{r}
 # 2024-2025
 
-draymond_rookie <- read_csv("Draymond2024.csv")
+draymond_2024 <- read_csv("Draymond2024.csv")
 
 ```
 
 ```{r}
 # 2025-2026
 
-draymond_rookie <- read_csv("Draymond2025.csv")
+draymond_2025 <- read_csv("Draymond2025.csv")
 
 ```
