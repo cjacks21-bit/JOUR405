@@ -6,106 +6,53 @@ library(janitor)
 
 
 ```{r}
-# All data from Basketball Reference rookie year up to last year. It starts with his rookie year and ends with his more current full year (last year). filters - |> filter(!is.na(fouls), !is.na(team_score), !is.na(opponent_score), !is.na(so_g))
+# All data from Basketball Reference, rookie year (2012-13) up to the 2025-26 season. Every season file is loaded with the same function so they all have identical columns.
 
-draymond_rookie <- read_csv("Draymond2012.csv") |> mutate(`3P` = as.numeric(`3P`))
+load_draymond <- function(file, season) {
+  read_csv(file, col_types = cols(.default = col_character()),
+           # non-games show up as text in the stat columns
+           na = c("", "Did Not Play", "Did Not Dress", "Inactive", "Not With Team", "Player Suspended")) |>
+    # the unnamed column is home/away ("@" = away)
+    rename(home_away = 6) |>
+    # split "W 87-85" into win_loss ("W"), team_score (87), opponent_score (85)
+    # (extra = "drop" discards the "(OT)" tag on overtime games)
+    separate(Result, into = c("win_loss", "score"), sep = " ", extra = "drop") |>
+    separate(score, into = c("team_score", "opponent_score"), sep = "-") |>
+    mutate(
+      season = season,
+      Date = as.Date(Date),
+      # minutes played: "15:27" -> 15.45
+      MP = period_to_seconds(ms(MP)) / 60,
+      across(c(Rk, Gcar, Gtm, team_score, opponent_score, FG:`+/-`), as.numeric)
+    )
+}
 
+draymond_rookie <- load_draymond("Draymond2012.csv", "2012-13")
 ```
 
 ```{r}
-# 2013-2014
-
-draymond_2013 <- read_csv("Draymond2013.csv")
-
-```
-
-
-```{r}
-# 2014-2015
-
-draymond_2014 <- read_csv("Draymond2014.csv")
-
-```
-
-
-
-```{r}
-# 2015-2016
-
-draymond_2015 <- read_csv("Draymond2015.csv")
-
-```
-
-
-
-```{r}
-# 2016-2017
-
-draymond_2016 <- read_csv("Draymond2016.csv")
-
+draymond_2013 <- load_draymond("Draymond2013.csv", "2013-14")
+draymond_2014 <- load_draymond("Draymond2014.csv", "2014-15")
+draymond_2015 <- load_draymond("Draymond2015.csv", "2015-16")
+draymond_2016 <- load_draymond("Draymond2016.csv", "2016-17")
+draymond_2017 <- load_draymond("Draymond2017.csv", "2017-18")
+draymond_2018 <- load_draymond("Draymond2018.csv", "2018-19")
+draymond_2019 <- load_draymond("Draymond2019.csv", "2019-20")
+draymond_2020 <- load_draymond("Draymond2020.csv", "2020-21")
+draymond_2021 <- load_draymond("Draymond2021.csv", "2021-22")
+draymond_2022 <- load_draymond("Draymond2022.csv", "2022-23")
+draymond_2023 <- load_draymond("Draymond2023.csv", "2023-24")
+draymond_2024 <- load_draymond("Draymond2024.csv", "2024-25")
+draymond_2025 <- load_draymond("Draymond2025.csv", "2025-26")
 ```
 
 ```{r}
-# 2017-2018
-
-draymond_2017 <- read_csv("Draymond2017.csv")
-
-```
-
-```{r}
-# 2018-2019
-
-draymond_2018 <- read_csv("Draymond2018.csv")
-
-```
-
-```{r}
-# 2019-2020
-
-draymond_2019 <- read_csv("Draymond2019.csv")
-
-```
-
-```{r}
-# 2020-2021
-
-draymond_2020 <- read_csv("Draymond2020.csv")
-
-```
-
-```{r}
-# 2021-2022
-
-draymond_2021 <- read_csv("Draymond2021.csv")
-
-```
-
-```{r}
-# 2022-2023
-
-draymond_2022 <- read_csv("Draymond2022.csv")
-
-```
-
-```{r}
-# 2023-2024
-
-draymond_2023 <- read_csv("Draymond2023.csv")
-
-```
-
-```{r}
-# 2024-2025
-
-draymond_2024 <- read_csv("Draymond2024.csv")
-
-```
-
-```{r}
-# 2025-2026
-
-draymond_2025 <- read_csv("Draymond2025.csv")
-
+# combine all seasons into one data frame
+draymond_all <- bind_rows(
+  draymond_rookie, draymond_2013, draymond_2014, draymond_2015, draymond_2016,
+  draymond_2017, draymond_2018, draymond_2019, draymond_2020, draymond_2021,
+  draymond_2022, draymond_2023, draymond_2024, draymond_2025
+)
 ```
 
 
@@ -113,21 +60,22 @@ draymond_2025 <- read_csv("Draymond2025.csv")
 
 ```{r}
 draymond_rookie <- draymond_rookie |> mutate(point_diff = team_score - opponent_score)
+
 ```
 
 ### Task 4: Use `summarize()` and the `cor()` function to calculate the correlation between fouls and goal differential, using the pearson method.
 
 ```{r}
-draymond_rookie |> summarize(correlation = cor(`3P`, Result, method="pearson"))
+draymond_rookie |> summarize(correlation = cor(`3P`, point_diff, use = "complete.obs", method="pearson"))
 ```
 
 ### Task 5: Create a scatterplot of fouls and goal differential, using `geom_point()`
 
 ```{r}
 
-matches25 |> 
+draymond_rookie |>
   ggplot() +
-  geom_point(aes(x=goal_diff, y=fouls)) +
-  geom_smooth(aes(x=goal_diff, y=fouls), method="lm")
+  geom_point(aes(x=point_diff, y=`3P`)) +
+  geom_smooth(aes(x=point_diff, y=`3P`), method="lm")
 
 ```
