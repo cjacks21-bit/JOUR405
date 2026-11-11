@@ -43,6 +43,7 @@ pg_murders_heat |>
 
 pg_murders_heat |> 
   ggplot() +
+    geom_point(aes(x=temperature, y=murders, label=month)) +
   geom_text(aes(x=temperature, y=murders, label=month), size = 5) +
   geom_smooth(aes(x=temperature, y=murders, method="lm"))
 
@@ -51,6 +52,7 @@ pg_murders_heat |>
 
 ### Task 6: Describe the results of both the correlation calculation and the scatterplot.
 
-The results of both the correlation calculation and the scatterplot show both increased temperatures and overall numbers of murders during May, June, July, August and September (with upper bounds of about 80 degrees and 45 murders) — and decreased temperatures and murders in November, Februrary, January and December (with lower bounds of around 35 degrees and 20 murders). The scatterplot illustrates somewhat of a steep dropoff between these two categories of months, relating to the conclusion that more murders occur during the summer months (when temperatures are high and it's more appealing for indivudals to be outside), while a decreased number of murders occur in relation to colder temperature-months (specifically in the winter season, when it's less appealing for individuals to go outside and less accessible for murders to take place). In short, there's definitely a moderate to strong correlation between overall temperatures and number of murders.
+We see there is a slight correlation between temperature and amount of murders. Of course there are outliers in different places, but as temperatures rise, there are more murders. The pearson method displays .5 which means there is without a doubt correlation, it's just not perfect, but it's also far from little correlation. October is one of the biggest outliers but that could be do to the violent nature surrounding Halloween and the late nights as well. December could be opportunity, the feelings of the holidays and possible revenge or the horizon of a new year could bring certain emotions, or even greed over gifts/family gatherings. When temperatures are hot, people are more irritable, more outside and more prone to violence therefore. March could be higher cause people are going back outside, but this is why the correlation is moderate, there is some truth and some things to point to, but like Kevin Blackistone said this is where we have to use critical thinking to help work through these findings and data points.
+
 
 When you are done, save your work, switch to GitHub Desktop, then add, commit and push your changes to GitHub and submit the URL of the notebook in ELMS.
