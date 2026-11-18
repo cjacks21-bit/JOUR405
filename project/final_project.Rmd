@@ -28,9 +28,12 @@ load_draymond <- function(file, season) {
 }
 
 draymond_rookie <- load_draymond("Draymond2012.csv", "2012-13")
+
 ```
 
 ```{r}
+# All data from Basketball Reference, rookie year (2012-13) up to the 2025-26 season. Every season file is loaded with the same function so they all have identical columns. boom
+
 draymond_2013 <- load_draymond("Draymond2013.csv", "2013-14")
 draymond_2014 <- load_draymond("Draymond2014.csv", "2014-15")
 draymond_2015 <- load_draymond("Draymond2015.csv", "2015-16")

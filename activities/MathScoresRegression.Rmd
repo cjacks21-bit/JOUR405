@@ -33,7 +33,7 @@ schools |> arrange(`FARMS Pct`) |> head(10)
 Look at the distribution of FARMS percentages. Do any values look unusual or suspicious? What might it mean if a school has a FARMS percentage of exactly 100? Write two or three sentences describing what you see and whether anything concerns you.
 
 ANSWER HERE
-
+I wouldn't say any of these values look unusual or suspicious, I do wonder what is going on at Whitemarsh however. A school having a FARMS percentage of exactly 100 means that all of their students are receiving free and reduced meal services, this could be due to neighborhood elementary schools in poorer communities, but also a FARMS score of 100 could just be a lazy error. What I'm seeing is schools that have a lot of underpriveleged students are exceeding math expectations, almost more than schools that have lower rates of underpriveleged youth. I'd want to know what those schools are doing vs. others, but also I'd want to talk to students to see how things are going for them in the classroom. 
 
 ### Task 2: Create a Scatterplot and Describe the Results
 
@@ -51,6 +51,7 @@ schools |>
 Describe what you see. Is there a clear trend? Does the regression line look like it represents the data well, or does it seem to be pulled in an odd direction? Connect what you observed in Task 1 to what you see here.
 
 ANSWER HERE
+There is a clear trend, The more FARMS students there are, the higher these schools are scoring on math. The regression line does represent the data well because there are still schools with low numbers of FARMS students that are scoring higher, what I noticed is the baseline for heavily populated FARMS schools is higher than that of those with lower FARMS populations. This could have something to do with the curriculum, the teachers and how much they care, as well as parents incentivizing their kids to perform in school. The slope of the line isn't odd and it isn't steep, it makes sense and it reflects the data.
 
 
 ### Task 3: Run the Regression Model
@@ -69,7 +70,7 @@ The **p-value** tells you whether the relationship is statistically significant.
 Report all three values and describe what they tell you. Does this model support the school board member's claim? Is this even a model worth using?
 
 ANSWER HERE
-
+The p-value is 0.1225 which means our correlation is not very strong, not much significance. The coefficient is positive but not by much, it's 0.12349, which means if you raise FARMS percentage by 1%, math percentages would only go up by .1%. In this situation you'd need to raise FARMS by 10% to even see just a 1% increase in math scores. The adjusted r-squared is 0.0254 which tells us how much of the variation is explained by FARMS percentage, the 0.025 value turns into 2.5% which displays how little of the variation in math scores is explained by FARMS percentage. This means that this doesn't support the school board member's claim that elementary schools with fewer students on free and reduced-price meals do better on standardized math tests. The model really isn't even worth using as it shows very little significance. 
 
 ### Task 4: What's Driving the Problem? Filter and Rerun.
 
@@ -99,6 +100,7 @@ cat("  Adjusted R-squared:", summary(model_filtered)$adj.r.squared, "\n")
 How did removing those schools change the model? Did the coefficient change direction? Did the p-value or R-squared improve meaningfully? What does this tell you about the influence of suspicious data values on a regression model?
 
 ANSWER HERE
+Removing these schools changed the model, the coeffecient became more positive and the p-value and r-squared improved, but not meaningfully. This tells us that suspicious data values can skew regression models, possibly making a useful model useless, even though this might not be the case in this situation. 
 
 
 ### Task 5: Even the Better Model Has Problems
@@ -133,7 +135,7 @@ head(schools_filtered |> select(1, `FARMS Pct`, `% Met or Exceeded Math Expectat
 What are the largest residuals? Given the model's weak R-squared, how much confidence would you have in labeling these schools as over- or under-performers? Why?
 
 ANSWER HERE
-
+The largest residuals come from Gulph Elementary School, Hereford Elementary school and Whitemarsh. Given the weak r-squared and the model's weaknesses, I'd be hesitant to label these schools as anything until we actually go in and see how things are running. Tests and nunmbers don't tell the whole story sometimes, so labeling children as underperforming when they're just the product isn't the best way to go about things until we have the entire scope. 
 
 ### Task 6: Write the Story Pitch
 
@@ -142,3 +144,4 @@ You've now run two models, examined the data quality and seen that even a cleane
 Write a short story pitch (3-5 sentences) that addresses the following: Does the data support or contradict the claim? What data quality issues did you find? What would you need - different data, a different model, additional reporting - before you could responsibly publish a story about this claim? Who would you call first?
 
 ANSWER HERE
+The data doesn't support or contradict the claims alone. We found that there could be incorrect statistic data on FARMS students. We'd need another model with additional reporting before we could even think of reporting a story like this. Firstly we'd probably have to reach out to the school district to find the actual and correct number for FARMS students, and then after that we have to do additional reporting on school conditions, teaching conditions and much more. There is definitely a story here, the question is who is going to dig until they find it instead of making a model and reporting off that.I'd also try to contact parents in the best performing schools and worst to maybe identify gaps, strengths and weaknesses.
