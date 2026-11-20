@@ -1,6 +1,6 @@
 ---
 title: "Identifying Schools with Biggest Differences in Math Test Scores, Part 2"
-author: "YOUR NAME"
+author: "Christian Jackson"
 ---
 
 ```{r}
@@ -31,7 +31,7 @@ schools |> arrange(desc(`FARMS Pct`)) |> head(10)
 Are there any data quality issues like the ones you found in the Pennsylvania data? How does the distribution of FARMS percentages compare between the two counties? Note anything that concerns you or gives you confidence in the data.
 
 ANSWER HERE
-
+I don't see the same data quality issues like the ones found in Pennsylvania. I'm not sure if that's being naive, but the data does look more exact, although some at the bottom with just 4% look a little off to me,. In Maryland it looks like this claim wouldn't even be brought up when using Maryland because it almost proves the opposite, scores decrease with more FARMS, although, Fox Chapel Elementary could be a story.
 
 ### Task 2: Create a Scatterplot and Compare (5 points)
 
@@ -39,7 +39,7 @@ Replace the REPLACE_ME value with the correct variable name to create a scatterp
 
 ```{r}
 schools |>
-  ggplot(aes(x = `REPLACE_ME`, y = `% Met or Exceeded Math Expectations`)) +
+  ggplot(aes(x = `FARMS Pct`, y = `% Met or Exceeded Math Expectations`)) +
   geom_point() +
   geom_smooth(method = "lm", se = FALSE, color = "red") +
   labs(x = "FARMS Percentage", y = "% Met or Exceeded Math Expectations",
@@ -49,6 +49,7 @@ schools |>
 Describe what you see. Then compare this scatterplot specifically to the Pennsylvania one: what differences do you notice in the direction, strength, and spread of the relationship? The two counties share a name and are both suburban — what might explain why they look so different?
 
 ANSWER HERE
+In Maryland you see a pronounced, major, decrease, whereas Pennsylvania showed a slight increase with FARMS percentage increasing, even after removing the schools with 100% FARMS. They might look different due to funding of schools and how much each state spends on their students. Pennsylvania might just be investing more into their schools, and they also might have more money. Maryland also just has a higher volume of schools with FARMS percentage so the conversation is just entirely different especially when you look at the priorities of parents in certain situations and how they influence their child's learning.
 
 
 ### Task 3: Linear Regression Model (5 points)
@@ -56,13 +57,14 @@ ANSWER HERE
 Replace the REPLACE_ME value with the correct variable name to run a linear regression model predicting math scores from FARMS percentage.
 
 ```{r}
-model <- lm(`REPLACE_ME` ~ `FARMS Pct`, data = schools)
+model <- lm(`% Met or Exceeded Math Expectations` ~ `FARMS Pct`, data = schools)
 summary(model)
 ```
 
 Report the three key statistics: the p-value, the Adjusted R-squared, and the coefficient for FARMS Pct. Then interpret them together — not separately. What does the combination of these three numbers tell you about the relationship between poverty and math scores in Montgomery County, Md.? Is this model worth using? How does it compare to the Pennsylvania model?
 
 ANSWER HERE
+The p-value 0.00000000000000022, coefficient for FARMS Pct and Adjusted R-squared:  0.6734 tells us that in this situation specifically, a higher number of FARMS students has a negative effect on math scores. All of these values show statistical significance, in this situation it points negatively. This is a real model that shows us the effect of poverty on education especially when you compare towns of the same name in the same region with vastly different stories. 
 
 
 ### Task 4: Identifying Schools with the Biggest Residuals (6 points)
@@ -72,9 +74,9 @@ Replace the REPLACE_ME values with the correct variable names to calculate predi
 ```{r}
 schools <- schools |>
   mutate(
-    predicted = predict(REPLACE_ME),
+    predicted = predict(model),
     residual = `% Met or Exceeded Math Expectations` - predicted,
-    abs_residual = abs(REPLACE_ME)
+    abs_residual = abs(residual)
   ) |>
   arrange(desc(abs_residual))
 
@@ -89,6 +91,7 @@ For each of the two schools, answer:
 - What would your first reporting question be to the principal of that school?
 
 ANSWER HERE
+Definitely misread the directions and researched every school, Fox Chapel and Germantown Elementary have the most positive and most negative residuals respectively. It's interesting because after I did Fox Chapel and noticed it was in Germantown, and then saw the lowest as Germantown elementary, a 12 minute drive away from each other. Germantown has a $122,406 median income, higher than $111,855 income of Montgomery County, PA. The education in Germantown is also good, so the only thing I can really point to are the schools, principals and teachers. The only other thing you maybe could point to is the higher than average child poverty rate than that of the DMV area with about 22% in poverty.
 
 
 ### Task 5: Evaluate the Model and Write the Pitch (7 points)
@@ -98,3 +101,4 @@ You've now run this analysis on two counties. Return to the school board member'
 Write a short story pitch of 4-6 sentences that addresses all of the following: Does the Maryland data support or contradict the claim? How does it compare to what you found in Pennsylvania? What would you ask the school board member if you called them for comment? And what's the most interesting specific finding from your residuals analysis: which school would you want to visit first, and why?
 
 ANSWER HERE
+The Maryland data helps to support the claim that elementary schools with fewer students on free and reduced priced lunches do better on standardized math tests. However, this data does not definitely make this claim a fact. We saw in Pennsylvania that scores actually might increase due to students on free and reduced lunches, but the data was all over the place, Maryland showed a downward trend, so there has to be more tests in more places. I would ask the school member why they felt like that, what research they executed etc. I would most definitely visit the two Germantown schools because of their duality, but I'd like to take a look into the 100% schools for Pennsylvania. There is so much negativity involved around education especially with the youth that something has to be highlighted. 
