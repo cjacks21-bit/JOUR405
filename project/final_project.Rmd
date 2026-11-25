@@ -32,7 +32,7 @@ draymond_rookie <- load_draymond("Draymond2012.csv", "2012-13")
 ```
 
 ```{r}
-# All data from Basketball Reference, rookie year (2012-13) up to the 2025-26 season. Every season file is loaded with the same function so they all have identical columns. boom
+# All data from Basketball Reference, rookie year (2012-13) up to the 2025-26 season. Every season file is loaded with the same function so they all have identical columns. 
 
 draymond_2013 <- load_draymond("Draymond2013.csv", "2013-14")
 draymond_2014 <- load_draymond("Draymond2014.csv", "2014-15")
@@ -81,4 +81,50 @@ draymond_rookie |>
   geom_point(aes(x=point_diff, y=`3P`)) +
   geom_smooth(aes(x=point_diff, y=`3P`), method="lm")
 
+```
+
+
+```{r}
+model <- lm(`3P` ~ `win_loss`, data = draymond_all)
+summary(model)
+```
+
+
+
+```{r}
+draymond_all |>
+  mutate(
+    predicted = predict(model),
+    residual = `3P` - win_loss,
+    abs_residual = abs(residual)
+  ) |>
+  arrange(desc(abs_residual))
+
+head(dryamond_all |> select(1, `3P`, `win_loss`, predicted, residual), 10)
+
+# issue with model or size?
+
+```
+
+
+```{r}
+draymond_rookie |>
+  ggplot(aes(x = `3P`, y = `point_diff`)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE, color = "red") +
+  labs(x = "3 Pointers made",
+       title = "Point differential")
+# more testing needed
+
+```
+```{r}
+cat("Full dataset model:\n")
+cat("  Coefficient:", coef(model)[2], "\n")
+cat("  p-value:", summary(model)$coefficients[2,4], "\n")
+cat("  Adjusted R-squared:", summary(model)$adj.r.squared, "\n\n")
+
+cat("Filtered dataset model (`3P` < 100):\n")
+cat("  Coefficient:", coef(model)[2], "\n")
+cat("  p-value:", summary(model)$coefficients[2,4], "\n")
+cat("  Adjusted R-squared:", summary(model)$adj.r.squared, "\n")
 ```
